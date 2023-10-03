@@ -29,6 +29,7 @@ export default function AddTopicPage() {
         throw new Error("Unable to connect Pls check after some time");
       } else {
         router.push("/");
+        router.refresh();
       }
     } catch (error: any) {
       console.log("Error while updating", error.message);

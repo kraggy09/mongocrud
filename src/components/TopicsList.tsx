@@ -25,30 +25,33 @@ const getTopics = async () => {
   }
 };
 export default async function TopicsList() {
-  const { data } = await getTopics();
-  console.log(data);
+  const res = await getTopics();
 
   return (
     <>
-      {data.map((t: Topics) => {
-        return (
-          <div key={t._id}>
-            <div className="p-4 border rounded-xl border-slate-400 items-start my-3 flex justify-between gap-5">
-              <div>
-                <h2 className="font-2xl font-bold">{t.title}</h2>
-                <div>{t.description}</div>
-              </div>
-              <div className="flex gap-2">
-                <RemoveBtn id={t._id} />
+      {res ? (
+        res.data.map((t: Topics) => {
+          return (
+            <div key={t._id}>
+              <div className="p-4 border rounded-xl border-slate-400 items-start my-3 flex justify-between gap-5">
+                <div>
+                  <h2 className="font-2xl font-bold">{t.title}</h2>
+                  <div>{t.description}</div>
+                </div>
+                <div className="flex gap-2">
+                  <RemoveBtn id={t._id} />
 
-                <Link href={`/editTopic/${t._id}`}>
-                  <HiPencilAlt size={24} />
-                </Link>
+                  <Link href={`/editTopic/${t._id}`}>
+                    <HiPencilAlt size={24} />
+                  </Link>
+                </div>
               </div>
             </div>
-          </div>
-        );
-      })}
+          );
+        })
+      ) : (
+        <div>Loading...</div>
+      )}
     </>
   );
 }
